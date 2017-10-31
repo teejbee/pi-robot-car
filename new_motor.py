@@ -1,38 +1,31 @@
-import time 
+import time
 import RPi.GPIO as GPIO
-
+from gpiozero import Motor
 
 L1 = 19
 L2 = 26
 R1 = 6
 R2 = 13
 
-
 def init():
-  GPIO.setmode(GPIO.BCM)
-  GPIO.setup(L1, GPIO.OUT)
-  GPIO.setup(L2, GPIO.OUT)
-  GPIO.setup(R1, GPIO.OUT)
-  GPIO.setup(R2, GPIO.OUT)
-  p1 = GPIO.PWM(L1, 500)
-  p2 = GPIO.PWM(L2, 500)
-  p3 = GPIO.PWM(R1, 500)
-  p4 = GPIO.PWM(R2, 500)
+    left_motor = Motor(L1, L2)
+    right_motor = Motor(R1, R2)
+
+def stop():
+    left_motor.stop()
+    right_motor.stop()
+
+def cleanup():
+  GPIO.cleanup()
 
 def front_back(front):
     print "moving front {}\n".format(front)
-    GPIO.output(L1, front)
-    GPIO.output(L2, not front)
-    GPIO.output(R1, front)
-    GPIO.output(R2, not front)
-
-def set_speed(percent):
-
-    
-
-def cleanup():
-  print "cleaning up GPIO"
-  GPIO.cleanup()
+    if front:
+        left_motor.forward()
+        right_motor.forward()
+    else:
+        left_motor.backward()
+        right_motor.backward()
 
 def loop():
   ip = ' '
@@ -45,6 +38,8 @@ def loop():
     elif ip == 'z':
       front_back(False)
       time.sleep(2)
+  stop()
+
 
 def main():
     init()
