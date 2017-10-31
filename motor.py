@@ -24,7 +24,8 @@ def front_back(front):
 
 
 def cleanup():
-    GPIO.cleanup()
+  print "cleaning up GPIO"
+  GPIO.cleanup()
 
 def loop():
   ip = ' '
@@ -42,7 +43,11 @@ def main():
     init()
     try:
       loop()
-    except e:
-        print e.message
-    cleanup()
+      cleanup()
+    except: 
+      print "exception handled"
+      #print e.message
+      cleanup()
 
+if __name__ == '__main__':
+  main()
