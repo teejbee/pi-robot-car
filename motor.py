@@ -26,9 +26,6 @@ def front_back(front):
     GPIO.output(R1, front)
     GPIO.output(R2, not front)
 
-def set_speed(percent):
-
-    
 
 def cleanup():
   print "cleaning up GPIO"
