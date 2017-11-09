@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 import time
 import traceback
@@ -36,8 +38,8 @@ def front_back(front):
     global right_motor
     print "moving front {}\n".format(front)
     if front:
-        left_motor.forward(speed=0.3)
-        right_motor.forward(speed=0.3)
+        left_motor.forward(speed=1)
+        right_motor.forward(speed=1.0)
     else:
         left_motor.backward(speed=0.3)
         right_motor.backward(speed=0.3)
