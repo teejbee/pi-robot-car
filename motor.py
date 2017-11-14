@@ -1,5 +1,7 @@
+#!/usr/bin/env python
 import time 
 import RPi.GPIO as GPIO
+import range_sensor as us_sensor
 
 
 L1 = 19
@@ -14,10 +16,6 @@ def init():
   GPIO.setup(L2, GPIO.OUT)
   GPIO.setup(R1, GPIO.OUT)
   GPIO.setup(R2, GPIO.OUT)
-  p1 = GPIO.PWM(L1, 500)
-  p2 = GPIO.PWM(L2, 500)
-  p3 = GPIO.PWM(R1, 500)
-  p4 = GPIO.PWM(R2, 500)
 
 def front_back(front):
     print "moving front {}\n".format(front)
