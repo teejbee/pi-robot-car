@@ -5,7 +5,7 @@ import time
 TRIG = 23 
 ECHO = 24
 
-class ultrasound:
+class Ultrasound:
     def __init__(self, delay=1):
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(TRIG,GPIO.OUT)
@@ -49,7 +49,7 @@ class ultrasound:
 
 
 if __name__=='__main__':
-    us = ultrasound()
+    us = Ultrasound()
     print us.get_distance()
     us.cleanup()
 
