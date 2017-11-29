@@ -7,6 +7,7 @@ L1 = 19
 L2 = 26
 R1 = 6
 R2 = 13
+OBST = :
 
 
 left_motor = None
