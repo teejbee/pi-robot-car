@@ -13,6 +13,9 @@ class Ultrasound:
         self.delay = delay
         self.settle()
 
+    def set_settledelay(val):
+        self.delay = val
+
     def settle(self):
         GPIO.output(TRIG, False)
         print "Waiting For Sensor To Settle"
