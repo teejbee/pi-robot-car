@@ -9,8 +9,11 @@ L1 = 19
 L2 = 26
 R1 = 6
 R2 = 13
+THRESHOLD = 30
+
 sensor = us_sensor.Ultrasound()
 s = socket.socket()
+sc = None
 
 
 def init():
@@ -67,8 +70,12 @@ def start_server():
 
 def get_input():
     try:
-        sc,t = s.accept()
-        data = sc.read(100)
+        data = ''
+        if sc:
+            data = sc.recv(100)
+        if data == '':
+            sc,t = s.accept()
+            data = sc.recv(100)
         data = data[0]
         return data
     except:
@@ -76,33 +83,50 @@ def get_input():
 
 def engine_on():
     print "engine turned on"
+    honk()
+    time.sleep(1)
     move_front()
 
 def engine_off():
     print "engine turned off"
     halt()
 
-def start_left_turn():
+def left_turn(dur=0.5):
     print "turning left"
+    time.sleep(dur)
+    halt()
 
-def start_right_turn():
+def right_turn(dur=0.5):
     print "turning right"
+    time.sleep(dur)
+    halt()
+
+def drive_safe():
+    obs = sensor.get_distance(settle=True)
+    if obs < THRESHOLD:
+        halt()
+        time.sleep(1.0)
+        move_back(dur=1.0)
+        turn_right(dur=1.0)
+    else:
+        move_front()
+
 
 def net_loop():
     start_server()
-    ip = ' '
-    while ip != 'a':
+    run = True
+    while run:
         ip = get_input()
         if ip == 'A':
             engine_on()
-        elif ip == 'B':
-            start_left_turn()
-        elif ip == 'b':
-            stop_left_turn()
-        elif ip == 'C':
-            start_right_turn()
-        elif ip == 'c':
-            stop_right_turn()
+        elif ip == 'a':
+            run = False
+        elif ip.lower() == 'b':
+            left_turn()
+        elif ip.lower() == 'c':
+            right_turn()
+
+        drive_safe()
 
     engine_off()
 
