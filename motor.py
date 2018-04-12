@@ -26,7 +26,7 @@ def init():
 
 
 def honk():
-    print "honk! \n"
+    print "honk! honk!!\n"
 
 def halt():
     print "halt \n"
