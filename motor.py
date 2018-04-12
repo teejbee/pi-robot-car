@@ -104,6 +104,7 @@ def right_turn(dur=0.5):
 def drive_safe():
     obs = sensor.get_distance(settle=True)
     if obs < THRESHOLD:
+        honk()
         halt()
         time.sleep(1.0)
         move_back(dur=1.0)
